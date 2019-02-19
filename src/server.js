@@ -4,7 +4,7 @@ const path = require('path')
 
 class App {
   constructor () {
-    this.express = express
+    this.express = express()
     this.isDev = process.env.NODE_ENV !== 'production'
 
     this.middlewares()
@@ -14,6 +14,7 @@ class App {
 
   middlewares () {
     this.express.use(express.urlencoded({ extended: false }))
+    // this.express.use(express.urlencoded({ extended: false }))
   }
 
   views () {
@@ -26,7 +27,9 @@ class App {
     this.express.set('view engine', 'njk')
   }
 
-  routes () {}
+  routes () {
+    this.express.use(require('./routes'))
+  }
 }
 
 module.exports = new App().express
